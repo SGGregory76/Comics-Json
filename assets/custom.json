@@ -1,0 +1,39 @@
+{
+  "canvas": {
+    "width": 400,
+    "height": 300,
+    "frameRate": 12
+  },
+  "items": [
+    {
+      "name": "laugh",
+      "label": "Laugh",
+      "audio": "audio/laugh.mp3",
+      "frames": [
+        "frames/laugh/1.png",
+        "frames/laugh/2.png",
+        "frames/laugh/3.png"
+      ]
+    },
+    {
+      "name": "boing",
+      "label": "Boing",
+      "audio": "audio/boing.mp3",
+      "frames": [
+        "frames/boing/1.png",
+        "frames/boing/2.png",
+        "frames/boing/3.png"
+      ]
+    },
+    {
+      "name": "cheer",
+      "label": "Cheer",
+      "audio": "audio/cheer.mp3",
+      "frames": [
+        "frames/cheer/1.png",
+        "frames/cheer/2.png",
+        "frames/cheer/3.png"
+      ]
+    }
+  ]
+}
