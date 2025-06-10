@@ -1,4 +1,79 @@
-<!-- In your Blogger gadget -->
-<div id="soundboard"></div>
-<div id="grid-container"></div>
-<script src="https://SGGregory76.github.io/Comics-Json/soundboard.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Configurable Soundboard + Comic Strip</title>
+  <style>
+    #comic-strip {
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    #comic-strip img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    #soundboard button {
+      margin: 5px;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="comic-strip">
+    <img id="comic" src="" alt="comic frame">
+  </div>
+  <div id="soundboard"></div>
+
+  <script>
+    let animInterval;
+
+    // Load config.json
+    fetch('config.json')
+      .then(r => r.json())
+      .then(config => {
+        const { canvas, items } = config;
+        const strip = document.getElementById('comic-strip');
+        const comicImg = document.getElementById('comic');
+        strip.style.width  = canvas.width + 'px';
+        strip.style.height = canvas.height + 'px';
+
+        const board = document.getElementById('soundboard');
+
+        items.forEach(item => {
+          // create button
+          const btn = document.createElement('button');
+          btn.textContent = item.label;
+          board.appendChild(btn);
+
+          // create hidden audio
+          const audio = document.createElement('audio');
+          audio.id = item.name;
+          audio.src = item.audio;
+          document.body.appendChild(audio);
+
+          // click → play
+          btn.addEventListener('click', () => {
+            audio.currentTime = 0;
+            audio.play();
+          });
+          // play → animate
+          audio.addEventListener('play', () => {
+            let idx = 0;
+            clearInterval(animInterval);
+            animInterval = setInterval(() => {
+              comicImg.src = item.frames[idx % item.frames.length];
+              idx++;
+            }, 1000 / canvas.frameRate);
+          });
+          // end → stop
+          audio.addEventListener('ended', () => {
+            clearInterval(animInterval);
+          });
+        });
+      })
+      .catch(err => console.error('Failed to load config:', err));
+  </script>
+</body>
+</html>
