@@ -55,3 +55,32 @@
   document.addEventListener('DOMContentLoaded', initSoundboard);
 })();
 
+function showComicPage({ id, label, preview }) {
+  const grid = document.getElementById('grid-container');
+  grid.innerHTML = '';  
+
+  // ➤ TEMP TEST: use a placeholder so we know the code-path works
+  // const FRAME_URLS = [
+  //   `https://picsum.photos/seed/${Date.now()}/300/200`
+  // ];
+
+  // ➤ REAL: your hosted comic.png (or list multiple: comic1.png, comic2.png…)
+  const BASE = 'https://SGGregory76.github.io/Comics-Json/comics/';
+  const FRAME_URLS = [
+    `${BASE}comic.png`
+  ];
+
+  FRAME_URLS.forEach(src => {
+    console.log('➤ attempting to load image:', src);
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = label;
+    img.style.display = 'block';      // force it visible
+    img.style.maxWidth = '100%';      // responsive
+    img.onload =  () => console.log('✅ loaded image:', src);
+    img.onerror = () => console.error('❌ failed to load image:', src);
+    grid.appendChild(img);
+  });
+
+  if (preview) new Audio(preview).play();
+}
