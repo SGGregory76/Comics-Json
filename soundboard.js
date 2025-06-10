@@ -3,7 +3,7 @@
   console.log('[soundboard.js] script loaded');
 
   // ←– REPLACE these with your own info:
-  const FREESOUND_TOKEN    = 'YOUR_REAL_TOKEN';
+  const FREESOUND_TOKEN    = '1NYiCNWuT4vUBDQ0LbgGJa39CgeHlhpiZ8egzFaF';
   const FREESOUND_USERNAME = 'Bizzy_Bullets';
 
   // Map each Freesound sound ID to an array of panel URLs
