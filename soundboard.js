@@ -4,7 +4,7 @@
 
   // ←– REPLACE these with your own info:
   const FREESOUND_TOKEN    = 'YOUR_REAL_TOKEN';
-  const FREESOUND_USERNAME = 'YOUR_FREESOUND_USERNAME';
+  const FREESOUND_USERNAME = 'Bizzy_Bullets';
 
   // Map each Freesound sound ID to an array of panel URLs
   // (fill in your own image URLs here)
