@@ -40,17 +40,27 @@
     }
   }
 
-  function showComicPage({id,label,preview}) {
-    const grid = document.getElementById('grid-container');
-    grid.innerHTML = '';
-    const FRAME_URLS = [`${BASE}comic.png`]; // or list comic1.png, comic2.png…
-    FRAME_URLS.forEach(src=>{
-      const img=document.createElement('img');
-      img.src=src; img.alt=label;
-      grid.appendChild(img);
-    });
-    if (preview) new Audio(preview).play();
-  }
+  function showComicPage({ id, label, preview }) {
+  const grid = document.getElementById('grid-container');
+  grid.innerHTML = '';
+
+  // Use your absolute Blogger URL here:
+  const FRAME_URLS = [
+    'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0ZqlwoqCTIPjAvfP60dY9N_h-e9lWCd3VD18ahzNsxp9KQ-R1MpYMVrTT05kA6fTNagU2VmCfAMOZmk9NBEZWhZJ-yhpUotibh6Z5VIouMN2xuQUjFsHKd45vERgDztTFflPsQBek1GuRD728CpGM6E-kHEFQ498eAsABkMHRgE5O_Z7mb3I2fd9uQqw/s1024/1000001539.png'
+  ];
+
+  FRAME_URLS.forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = label;
+    img.style.display = 'block';
+    img.style.maxWidth = '100%';
+    grid.appendChild(img);
+  });
+
+  if (preview) new Audio(preview).play();
+}
+
 
   document.addEventListener('DOMContentLoaded', initSoundboard);
 })();
