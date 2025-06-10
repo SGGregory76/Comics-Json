@@ -1,56 +1,90 @@
 // soundboard.js
 (function() {
-  const FREESOUND_TOKEN = '1NYiCNWuT4vUBDQ0LbgGJa39CgeHlhpiZ8egzFaF';
-  const SEARCH_TERMS    = ['cheer','boing','drum','laugh'];
+  console.log('[soundboard.js] script loaded');
 
-  // Map each term to an array of panel URLs
+  // ←– REPLACE these with your own info:
+  const FREESOUND_TOKEN    = 'YOUR_REAL_TOKEN';
+  const FREESOUND_USERNAME = 'YOUR_FREESOUND_USERNAME';
+
+  // Map each Freesound sound ID to an array of panel URLs
+  // (fill in your own image URLs here)
   const PANEL_MAP = {
-    cheer: [
-      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmeYJ-WCNEBfgI1_QY0N0YtPtzsCzl3ud0nvZbX4cj31hz9XOQwSOPQwLfdcidlOCKFKr4zzeFJfVaJwADdsnTOkhb7pTwSzgFlBrKPpAteZxng8EThgNcdcWT9KlLaOdCYELPZQe46-yq2_eweTYZoB5rwUP2NolEc0YDZM-Sstmk1WODzX-dybwT3hQW/s1536/1000001060.png',
-      'https://blogger.googleusercontent.com/img/b/.../cheer2.png',
-      'https://blogger.googleusercontent.com/img/b/.../cheer3.png'
-    ],
-    boing: [
-      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0ZqlwoqCTIPjAvfP60dY9N_h-e9lWCd3VD18ahzNsxp9KQ-R1MpYMVrTT05kA6fTNagU2VmCfAMOZmk9NBEZWhZJ-yhpUotibh6Z5VIouMN2xuQUjFsHKd45vERgDztTFflPsQBek1GuRD728CpGM6E-kHEFQ498eAsABkMHRgE5O_Z7mb3I2fd9uQqw/s1024/1000001539.png',
-      'https://blogger.googleusercontent.com/img/b/.../boing2.png'
-    ],
-    drum: [
-      'https://blogger.googleusercontent.com/img/b/.../drum1.png',
-      'https://blogger.googleusercontent.com/img/b/.../drum2.png'
-    ],
-    laugh: [
-      'https://blogger.googleusercontent.com/img/b/.../laugh1.png',
-      'https://blogger.googleusercontent.com/img/b/.../laugh2.png',
-      'https://blogger.googleusercontent.com/img/b/.../laugh3.png'
-    ]
+    // example:
+    // 123456: ['https://…/cheer1.png','https://…/cheer2.png'],
+    // 234567: ['https://…/boing1.png','https://…/boing2.png'],
   };
 
-  async function fetchSounds(term) {
-    // … unchanged …
+  /** 1. Fetch your own sounds from Freesound */
+  async function fetchUserSounds(pageSize = 20) {
+    const url = `https://freesound.org/apiv2/users/${FREESOUND_USERNAME}/sounds/`
+              + `?fields=id,name,previews&token=${FREESOUND_TOKEN}`
+              + `&page_size=${pageSize}`;
+    console.log('[soundboard.js] fetching your sounds:', url);
+    const res  = await fetch(url);
+    if (!res.ok) {
+      console.error('[soundboard.js] Freesound user-sounds error:', res.status);
+      return [];
+    }
+    const data = await res.json();
+    return data.results.map(r => ({
+      id:      r.id,
+      label:   r.name.replace(/_/g,' ').replace(/\.wav|\.mp3/gi,''),
+      preview: r.previews['preview-hq-mp3']
+    }));
   }
 
+  /** 2. Build your soundboard from those sounds */
   async function initSoundboard() {
-    // … unchanged …
+    console.log('[soundboard.js] initSoundboard');
+    const board = document.getElementById('soundboard');
+    if (!board) return console.error('No #soundboard element');
+    board.textContent = 'Loading your sounds…';
+
+    const clips = await fetchUserSounds(30);
+    if (!clips.length) {
+      board.textContent = '⚠️ No sounds found in your account.';
+      return;
+    }
+    board.textContent = '';
+    clips.forEach(({ id, label, preview }) => {
+      const btn = document.createElement('button');
+      btn.textContent = label;
+      btn.style.margin = '4px';
+      btn.onclick = () => showPanel(id, preview);
+      board.appendChild(btn);
+    });
   }
 
-  function showPanel(term, preview) {
+  /** 3. On click, show the mapped panels and play the preview */
+  function showPanel(id, preview) {
+    console.log('[soundboard.js] showPanel:', id);
     const grid = document.getElementById('grid-container');
+    if (!grid) return console.error('No #grid-container element');
     grid.innerHTML = '';
 
-    // get the array; if someone accidentally set a string, wrap it
-    let urls = PANEL_MAP[term] || [];
+    // Look up your own PANEL_MAP by sound ID
+    let urls = PANEL_MAP[id] || [];
     if (!Array.isArray(urls)) urls = [urls];
+    if (!urls.length) {
+      console.warn(`No panels defined for sound ID ${id}`);
+      return;
+    }
 
     urls.forEach(src => {
+      console.log('Loading panel image:', src);
       const img = document.createElement('img');
       img.src = src;
-      img.alt = term;
-      img.style.maxWidth = '100%';
+      img.alt = `Panel for ${id}`;
       img.style.display = 'block';
+      img.style.maxWidth = '100%';
+      img.onerror = () => console.error('Panel failed to load:', src);
       grid.appendChild(img);
     });
 
-    if (preview) new Audio(preview).play();
+    if (preview) {
+      console.log('Playing preview:', preview);
+      new Audio(preview).play();
+    }
   }
 
   document.addEventListener('DOMContentLoaded', initSoundboard);
