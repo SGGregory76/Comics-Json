@@ -11,17 +11,17 @@
   // ←– Map each term to either a single URL or an array of URLs
   const PANEL_MAP = {
     cheer: [
-      'https://your-cdn.com/comics/cheer1.png',
-      'https://your-cdn.com/comics/cheer2.png',
-      'https://your-cdn.com/comics/cheer3.png'
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmeYJ-WCNEBfgI1_QY0N0YtPtzsCzl3ud0nvZbX4cj31hz9XOQwSOPQwLfdcidlOCKFKr4zzeFJfVaJwADdsnTOkhb7pTwSzgFlBrKPpAteZxng8EThgNcdcWT9KlLaOdCYELPZQe46-yq2_eweTYZoB5rwUP2NolEc0YDZM-Sstmk1WODzX-dybwT3hQW/s1536/1000001060.png',
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0ZqlwoqCTIPjAvfP60dY9N_h-e9lWCd3VD18ahzNsxp9KQ-R1MpYMVrTT05kA6fTNagU2VmCfAMOZmk9NBEZWhZJ-yhpUotibh6Z5VIouMN2xuQUjFsHKd45vERgDztTFflPsQBek1GuRD728CpGM6E-kHEFQ498eAsABkMHRgE5O_Z7mb3I2fd9uQqw/s1024/1000001539.png',
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmeYJ-WCNEBfgI1_QY0N0YtPtzsCzl3ud0nvZbX4cj31hz9XOQwSOPQwLfdcidlOCKFKr4zzeFJfVaJwADdsnTOkhb7pTwSzgFlBrKPpAteZxng8EThgNcdcWT9KlLaOdCYELPZQe46-yq2_eweTYZoB5rwUP2NolEc0YDZM-Sstmk1WODzX-dybwT3hQW/s1536/1000001060.png'
     ],
     boing: [
-      'https://your-cdn.com/comics/boing1.png',
-      'https://your-cdn.com/comics/boing2.png'
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0ZqlwoqCTIPjAvfP60dY9N_h-e9lWCd3VD18ahzNsxp9KQ-R1MpYMVrTT05kA6fTNagU2VmCfAMOZmk9NBEZWhZJ-yhpUotibh6Z5VIouMN2xuQUjFsHKd45vERgDztTFflPsQBek1GuRD728CpGM6E-kHEFQ498eAsABkMHRgE5O_Z7mb3I2fd9uQqw/s1024/1000001539.png',
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmeYJ-WCNEBfgI1_QY0N0YtPtzsCzl3ud0nvZbX4cj31hz9XOQwSOPQwLfdcidlOCKFKr4zzeFJfVaJwADdsnTOkhb7pTwSzgFlBrKPpAteZxng8EThgNcdcWT9KlLaOdCYELPZQe46-yq2_eweTYZoB5rwUP2NolEc0YDZM-Sstmk1WODzX-dybwT3hQW/s1536/1000001060.png'
     ],
     drum:   'https://your-cdn.com/comics/drum.png',      // single-panel example
     laugh: [
-      'https://your-cdn.com/comics/laugh1.png',
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmeYJ-WCNEBfgI1_QY0N0YtPtzsCzl3ud0nvZbX4cj31hz9XOQwSOPQwLfdcidlOCKFKr4zzeFJfVaJwADdsnTOkhb7pTwSzgFlBrKPpAteZxng8EThgNcdcWT9KlLaOdCYELPZQe46-yq2_eweTYZoB5rwUP2NolEc0YDZM-Sstmk1WODzX-dybwT3hQW/s1536/1000001060.png',
       'https://your-cdn.com/comics/laugh2.png',
       'https://your-cdn.com/comics/laugh3.png',
       'https://your-cdn.com/comics/laugh4.png'
