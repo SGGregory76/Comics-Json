@@ -1,6 +1,6 @@
 // soundboard.js
 (function() {
-  const FREESOUND_TOKEN = 'YOUR_REAL_TOKEN';
+  const FREESOUND_TOKEN = '1NYiCNWuT4vUBDQ0LbgGJa39CgeHlhpiZ8egzFaF';
   const SEARCH_TERMS    = ['cheer','boing','drum','laugh'];
   const PANEL_URL       = 'https://blogger.googleusercontent.com/.../1000001539.png';
 
