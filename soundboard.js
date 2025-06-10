@@ -40,14 +40,30 @@
     }
   }
 
-  function showComicPage({ id, label, preview }) {
+  function showComicPage({ preview }) {
   const grid = document.getElementById('grid-container');
   grid.innerHTML = '';
 
-  // Use your absolute Blogger URL here:
+  // **exact same URL** used in the static test, no extra quotes
   const FRAME_URLS = [
     'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0ZqlwoqCTIPjAvfP60dY9N_h-e9lWCd3VD18ahzNsxp9KQ-R1MpYMVrTT05kA6fTNagU2VmCfAMOZmk9NBEZWhZJ-yhpUotibh6Z5VIouMN2xuQUjFsHKd45vERgDztTFflPsQBek1GuRD728CpGM6E-kHEFQ498eAsABkMHRgE5O_Z7mb3I2fd9uQqw/s1024/1000001539.png'
   ];
+
+  FRAME_URLS.forEach(src => {
+    console.log('Loading panel:', src);
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Comic panel';
+    img.style.display = 'block';
+    img.style.maxWidth = '100%';
+    img.onerror = () => console.error('❌ panel load failed:', src);
+    img.onload  = () => console.log('✅ panel loaded:', src);
+    grid.appendChild(img);
+  });
+
+  if (preview) new Audio(preview).play();
+}
+
 
   FRAME_URLS.forEach(src => {
     const img = document.createElement('img');
